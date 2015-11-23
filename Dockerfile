@@ -33,3 +33,5 @@ RUN mkdir -p bin/ITKApps && cd bin/ITKApps && \
   make -j$(nproc) && \
   cd ITKApps-build && ctest && cd .. && \
   find . -name '*.o' -delete
+
+USER root
