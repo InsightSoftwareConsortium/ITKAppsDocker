@@ -9,6 +9,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
   libglu1-mesa-dev \
   libfreetype6-dev \
   libxt-dev \
+  ninja-build \
   subversion \
   x11proto-core-dev \
   x11proto-gl-dev \
@@ -28,9 +29,10 @@ RUN mkdir -p src && cd src && \
 
 RUN mkdir -p bin/ITKApps && cd bin/ITKApps && \
   cmake \
+    -G Ninja \
     -DCMAKE_BUILD_TYPE:STRING=MinSizeRel \
       ~/src/ITKApps/Superbuild && \
-  make -j$(nproc) && \
+  ninja && \
   cd ITKApps-build && ctest && cd .. && \
   find . -name '*.o' -delete
 
